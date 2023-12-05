@@ -15,7 +15,7 @@ namespace Pianeti
         {
             for (int i = 0; i < Pianeti.Count; i++)
             {
-                a.FillEllipse(new SolidBrush(Pianeti[i].Colore), new Rectangle((int)Pianeti[i].Posizione.X, (int)Pianeti[i].Posizione.Y, 10, 10));
+                a.FillEllipse(new SolidBrush(Pianeti[i].Colore), new Rectangle((int)Pianeti[i].Posizione.X, (int)Pianeti[i].Posizione.Y, 2 * (int)Math.Pow(0.75 * Pianeti[i].Massa /Math.PI, (double)1/3), 2 * (int)Math.Pow(0.75 * Pianeti[i].Massa / Math.PI, (double)1 / 3)));
             }
         }
     }

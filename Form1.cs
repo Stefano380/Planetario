@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pianeti.Properties;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,7 +35,7 @@ namespace Pianeti
 
             colori = new List<Color> {Color.Red, Color.Yellow, Color.Green, Color.Orange, Color.Purple};
 
-            this.Size = new System.Drawing.Size(1500, 800);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         int cont = 0;
@@ -83,46 +84,36 @@ namespace Pianeti
 
         private void CreaPianeta_Click(object sender, EventArgs e)
         {
-            double vx = double.Parse(txtVelocitaX.Text);
-            double vy = double.Parse(txtVelocitaY.Text);
+            double vx;
+            double vy;
 
-            double px = double.Parse(txtPosizioneX.Text);
-            double py = double.Parse(txtPosizioneY.Text);
+            double px;
+            double py;
 
-            double m = double.Parse(txtMassa.Text);
-            Vettore velocita = new Vettore(vx, vy);
-            Vettore posizione = new Vettore(px, py);
+            double m;
 
-            Pianeta pianeta = new Pianeta(txtNome.Text, m, posizione, velocita);
-            pianeta.Accelerazione= new Vettore(0,0);
+            if (double.TryParse(txtVelocitaX.Text, out vx) && double.TryParse(txtVelocitaY.Text, out vy) && double.TryParse(txtPosizioneX.Text, out px) && double.TryParse(txtPosizioneY.Text, out py) && double.TryParse(txtVelocitaX.Text, out vx) && double.TryParse(txtMassa.Text, out m))
+            {
+                Pianeta pianeta = new Pianeta(txtNome.Text, m, new Vettore(px, py), new Vettore(vx, vy));
+                pianeta.Accelerazione = new Vettore(0, 0);
 
-            Random a = new Random();
-            pianeta.Colore = colori[a.Next(4)];
+                Random a = new Random();
+                pianeta.Colore = colori[a.Next(4)];
 
-            p.Pianeti.Add(pianeta);
+                p.Pianeti.Add(pianeta);
 
-            listBox1.Items.Add(pianeta.Nome);
+                listBox1.Items.Add(pianeta.Nome);
+            }
+            else
+            {
+                MessageBox.Show("Inserire tutti i dati");
+            }
+            
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            txtNome.Visible = false;
-            txtMassa.Visible = false;
-            txtPosizioneX.Visible = false;
-            txtPosizioneY.Visible = false;
-            txtVelocitaX.Visible = false;
-            txtVelocitaY.Visible = false;
-
-            label1.Visible = false;
-            label3.Visible = false;
-            label4.Visible = false;
-            label5.Visible = false;
-            label6.Visible = false;
-            label7.Visible = false;
-
-            CreaPianeta.Visible = false;
-            btnStart.Visible = false;
-            listBox1.Visible = false;
+            this.Controls.Clear();
 
             timer1.Enabled = true;
         }
@@ -138,6 +129,11 @@ namespace Pianeti
         }
 
         private void listBox1_MouseLeave(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
             
         }
